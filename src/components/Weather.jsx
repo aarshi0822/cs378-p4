@@ -52,13 +52,20 @@ const Weather = () => {
                 return;
             }
 
+            console.log(data);
+
             const icon = allIcons[data.weather[0].icon] || sunny;
             setWeatherData({
                 Humidity: data.main.humidity,
                 windSpeed: data.wind.speed,
-                temperature: Math.floor(data.main.temp),
+                temperature: Math.round(data.main.temp),
                 location: data.name,
+                country: data.sys.country,
                 icon: icon,
+                description: data.weather[0].description,
+                feelslike : Math.round(data.main.feels_like),
+                sunrise: new Date(data.sys.sunrise * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
+                sunset: new Date(data.sys.sunset * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
                 condition: data.weather[0].main.toLowerCase()
             });
             setMoodMessage("");
@@ -145,7 +152,9 @@ const Weather = () => {
             <p className="temperature">
                 {weatherData.temperature} {unit === "imperial" ? "°F" : "°C"}
             </p>
-            <p className="location">{weatherData.location}</p>
+            <p className="location">{weatherData.location},{weatherData.country}</p>
+            <p>{weatherData.description}</p>
+
 
             <div className="weather-data">
                 <div className="col">
@@ -162,11 +171,26 @@ const Weather = () => {
                         <span>Wind</span>
                     </div>
                 </div>
-            </div>
+                </div>
 
             <div className="mood-mess">
                 {moodMessage && <p className="mood-message">{moodMessage}</p>}
             </div>
+
+            <div className="extra-data">
+                  <div className = "header">
+                      <p>Sunrise: </p>
+                      </div>
+                      <p>{weatherData.sunrise}</p>
+                  <div className = "header">
+                    <p>Sunset: </p>
+                    </div>
+                    <p>{weatherData.sunset}</p>
+                  <div className = "header">
+                      <p>Feels Like: </p>
+                    </div>
+                      <p>{weatherData.feelslike}{unit === "imperial" ? "°F" : "°C"}</p>
+              </div>
 
             {showPopup && (
                 <div className="popup-overlay" onClick={() => setShowPopup(false)}>
@@ -175,6 +199,8 @@ const Weather = () => {
                         <p className="movie-message">{movieRecommendation}</p>
                     </div>
                 </div>
+
+              
             )}
         </>
     ) : null}

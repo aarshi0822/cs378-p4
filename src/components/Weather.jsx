@@ -112,13 +112,20 @@ const Weather = () => {
         }
     };
 
-    const toggleTemperatureUnit = async () => {
-      const newUnit = unit === "imperial" ? "metric" : "imperial";
-      await setUnit(newUnit); // Ensure the unit updates
-      if (weatherData && weatherData.location) {
-          setTimeout(() => search(weatherData.location), 100); // Delay to ensure state updates
-      }
+    const toggleTemperatureUnit = () => {
+      setUnit(prevUnit => (prevUnit === "imperial" ? "metric" : "imperial"));
   };
+  
+  //Use useEffect to re-run search when `unit` updates
+  useEffect(() => {
+      if (weatherData && weatherData.location) {
+          search(weatherData.location);
+      }
+  }, [unit]); // Runs when `unit` changes
+
+
+  
+  
   
     const showWeatherMood = () => {
         if (!weatherData || !weatherData.condition) return;
@@ -126,14 +133,10 @@ const Weather = () => {
         setMoodMessage(mood);
     };
 
-    useEffect(() => {
-        search("Austin");
-    }, []);
-
         return (
             <div className="Weather">
                 <div className="search-bar">
-                    <input ref={inputRef} placeholder="Search" />
+                    <input ref={inputRef} placeholder="Enter your city" />
                     <img src={search_icon} alt="" onClick={() => search(inputRef.current.value)} />
                 </div>
 

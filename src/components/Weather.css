@@ -147,27 +147,38 @@
     color: red;
 }
 
-.extra-data{
-    position: absolute;
-    left: 165px; /* Distance from the left */
-    top: 55%;
-    transform: translateY(-50%); /* Center vertically */
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 1rem;
-    margin-top: 10px;
-}
-
-.header{
-    font-weight: bold;
-    margin-top: 15px;
-
-}
-
 
 .extra-data div span {
     display: block; /* Makes spans take full width below p */
     margin-bottom: 15px; /* Adds extra spacing between sections */
+}
+
+.extra-data{
+    width: 100%;
+    margin-top: 15px;
+    color: ffff;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.extra-data .col{
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 22px;
+}
+
+.extra-data .col span{
+    display: block;
+    font-size: 16px
+}
+
+.header{
+    font-weight: bold;
+    margin-left:10px;
+    margin-right: 10px;
+
 }
 
 

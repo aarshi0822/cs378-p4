@@ -1,0 +1,12 @@
+*{
+  margin : 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.app{
+  min-height:  100vh;
+  display: grid;
+  background: rgb(239, 206, 238);
+}
